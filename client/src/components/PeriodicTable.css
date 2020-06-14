@@ -19,10 +19,10 @@
   justify-content: center;
 }
 
-.element:hover {
+/* .element:hover {
   transform: scale(1.25, 1.25);
   z-index: 1;
-}
+} */
 
 .element .number {
   font-size: 8px;

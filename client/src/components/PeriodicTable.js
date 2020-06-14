@@ -1,6 +1,7 @@
 import React from "react";
 import "./PeriodicTable.css";
 import data from "./PeriodicTableJSON.json";
+import { motion } from "framer-motion";
 
 const colorMap = {
   "noble gas": "#FFBC42",
@@ -15,23 +16,50 @@ const colorMap = {
 
 const PeriodicTable = () => {
   return (
-    <div className="periodic-table">
+    <motion.div
+      className="periodic-table"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5 }}
+    >
       {data.elements.map((element) => (
-        <div
+        <motion.div
           className="element"
           key={element.name}
           style={{
             gridColumn: element.xpos,
             gridRow: element.ypos,
-            borderColor: colorMap[element.category],
+            backgroundColor: colorMap[element.category],
+          }}
+          whileHover={{
+            scale: 2,
+            textShadow: "0px, 0px, 50px, rgb(255, 255, 255)",
+            boxShadow: "0px 0px 80px rgb(255, 255, 255)",
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
           }}
         >
-          <strong>{element.symbol}</strong>
+          <motion.strong
+            initial={{ y: -750 }}
+            animate={{ y: 0 }}
+            transition={{ delay: 1.5, type: "spring", stiffness: 50 }}
+          >
+            {element.symbol}
+          </motion.strong>
           <small className="number">{element.number}</small>
-          <small className="name">{element.name}</small>
-        </div>
+          <motion.strong
+            className="name"
+            initial={{ x: "100vw" }}
+            animate={{ x: 0 }}
+            transition={{ type: "spring", stiffness: 100 }}
+          >
+            {element.name}
+          </motion.strong>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
